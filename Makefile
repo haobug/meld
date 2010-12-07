@@ -8,7 +8,7 @@ include INSTALL
 VERSION := $(shell grep "^version" meld/meldapp.py | cut -d \"  -f 2)
 RELEASE := meld-$(VERSION)
 MELD_CMD := ./meld #--profile
-SPECIALS := bin/meld meld/paths.py
+SPECIALS := bin/meld meld/conf.py
 BROWSER := firefox
 
 .PHONY:all
