@@ -1,19 +1,16 @@
 
 import os
+import sys
 
-PACKAGE = "meld" # "@PACKAGE"
-VERSION = "1.6.0" # "@VERSION"
-SHAREDIR = ( #SHAREDIR#
-)
-HELPDIR = ( #HELPDIR#
-)
-LOCALEDIR = ( #LOCALEDIR#
-)
-
+# If running uninstalled, use default values; otherwise, require defs module
 melddir = os.path.abspath(os.path.join(
               os.path.dirname(os.path.realpath(__file__)), ".."))
 
-DATADIR = SHAREDIR or os.path.join(melddir, "data")
-HELPDIR = HELPDIR or os.path.join(melddir, "help")
-LOCALEDIR = LOCALEDIR or os.path.join(melddir, "po")
-
+if os.path.exists(os.path.join(melddir, "meld.doap")):
+    PACKAGE = "meld"
+    VERSION = "0.0.0.0.1.badger"
+    DATADIR = os.path.join(melddir, "data")
+    HELPDIR = os.path.join(melddir, "help")
+    LOCALEDIR = os.path.join(melddir, "po")
+else:
+    from defs import *

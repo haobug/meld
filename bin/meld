@@ -73,12 +73,15 @@ melddir = os.path.abspath(os.path.join(os.path.dirname(self_path), ".."))
 
 if os.path.exists(os.path.join(melddir, "meld.doap")):
     sys.path[0:0] = [melddir]
-else:
-    sys.path[0:0] = [ #LIBDIR#
-    ]
+
+try:
+    import meld.conf
+except ImportError, e:
+    print >> sys.stderr, \
+             "Error: Can't find meld modules\n" + str(e)
+    sys.exit(1)
 
 # i18n support
-import meld.conf
 import gettext
 _ = gettext.gettext
 

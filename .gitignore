@@ -1,5 +1,16 @@
+/aclocal.m4
+/autom4te.cache
+/ChangeLog
+/config.*
+/configure
+Makefile
+Makefile.in
+/*.tar.bz2
+
 *.pyc
 *.orig
 *.rej
 *.desktop
 *.install
+
+meld/defs.py
