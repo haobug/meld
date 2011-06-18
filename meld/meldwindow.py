@@ -18,6 +18,7 @@
 
 import os
 from gettext import gettext as _
+import locale
 
 import gio
 import gtk
@@ -455,13 +456,14 @@ class MeldWindow(gnomeglade.Component):
     def on_menu_statusbar_toggled(self, widget):
         app.prefs.statusbar_visible = widget.get_active()
 
-    #
-    # Toolbar and menu items (help)
-    #
     def on_menu_help_activate(self, button):
-        # FIXME: This is why our current localised help isn't used.
-        help_dir = "/".join((conf.HELPDIR, "C", "meld.xml"))
-        misc.open_uri("ghelp:///" + os.path.abspath(help_dir))
+        if not conf.INSTALLED:
+            doc_tag = locale.getlocale()[0].split(".")[0].split("_")[0]
+            doc_tag = "C" if doc_tag == "en" else doc_tag
+            help_dir = "/".join((conf.HELPDIR, doc_tag, "meld.xml"))
+            misc.open_uri("ghelp:///" + os.path.abspath(help_dir))
+        else:
+            misc.open_uri("ghelp:meld")
 
     def on_menu_help_bug_activate(self, button):
         misc.open_uri("http://bugzilla.gnome.org/buglist.cgi?query=product%3Ameld")
