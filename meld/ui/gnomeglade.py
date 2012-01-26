@@ -1,5 +1,5 @@
 ### Copyright (C) 2002-2008 Stephen Kennedy <stevek@gnome.org>
-### Copyright (C) 2010 Kai Willadsen <kai.willadsen@gmail.com>
+### Copyright (C) 2010-2012 Kai Willadsen <kai.willadsen@gmail.com>
 
 ### This program is free software; you can redistribute it and/or modify
 ### it under the terms of the GNU General Public License as published by
@@ -17,13 +17,18 @@
 ### USA.
 
 import logging
+import os
 import re
 
 import gtk
 
+import meld.paths
 
 # FIXME: duplicate defn in bin/meld
 locale_domain = "meld"
+
+def ui_file(filename):
+    return os.path.join(meld.paths._share_dir, "ui", filename)
 
 
 class Component(object):
@@ -46,6 +51,7 @@ class Component(object):
         self.builder = gtk.Builder()
         self.builder.set_translation_domain(locale_domain)
         objects = [root] + extra if extra else [root]
+        filename = ui_file(filename)
         self.builder.add_objects_from_file(filename, objects)
         self.builder.connect_signals(self)
         self.widget = getattr(self, root)

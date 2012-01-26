@@ -32,7 +32,6 @@ import gtk.keysyms
 from . import melddoc
 from . import tree
 from . import misc
-from . import paths
 from . import recent
 from .ui import gnomeglade
 from .ui import emblemcellrenderer
@@ -249,7 +248,7 @@ class DirDiff(melddoc.MeldDoc, gnomeglade.Component):
 
     def __init__(self, prefs, num_panes):
         melddoc.MeldDoc.__init__(self, prefs)
-        gnomeglade.Component.__init__(self, paths.ui_dir("dirdiff.ui"), "dirdiff")
+        gnomeglade.Component.__init__(self, "dirdiff.ui", "dirdiff")
 
         actions = (
             ("DirCompare",   gtk.STOCK_DIALOG_INFO,  _("_Compare"), None, _("Compare selected"), self.on_button_diff_clicked),
@@ -267,7 +266,7 @@ class DirDiff(melddoc.MeldDoc, gnomeglade.Component):
 
             ("CustomFilterMenu", None, _("Filters"), None, _("Set active filters"), self.on_custom_filter_menu_toggled, False),
         )
-        self.ui_file = paths.ui_dir("dirdiff-ui.xml")
+        self.ui_file = gnomeglade.ui_file("dirdiff-ui.xml")
         self.actiongroup = gtk.ActionGroup('DirdiffToolbarActions')
         self.actiongroup.set_translation_domain("meld")
         self.actiongroup.add_actions(actions)
